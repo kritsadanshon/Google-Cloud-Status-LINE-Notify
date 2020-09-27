@@ -1,0 +1,40 @@
+version: '3.7'
+services:
+
+  # phpmyadmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    networks:
+      - public
+    ports:
+      - 8443:80
+    depends_on:
+      - database
+    environment:
+      - "PMA_HOSTS=database"
+      - "PMA_USER=root"
+      - "PMA_PASSWORD=secret"
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  # database
+  database:
+    image: mysql:5.6
+    networks:
+      - public
+    ports:
+      - 3306:3306
+    volumes:
+      - ./database/data:/var/lib/mysql:rw
+    #   - ./database/conf:/etc/mysql/conf.d:rw
+    environment:
+      - "MYSQL_DATABASE=gcp"
+      - "MYSQL_ROOT_PASSWORD=secret"
+      - "MYSQL_PASSWORD=secret"
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+networks:
+  public:
