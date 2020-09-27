@@ -1,0 +1,7 @@
+CREATE TABLE `tb_google_cloud_status` (
+  `id` bigint(20) NOT NULL,
+  `service_name` text NOT NULL,
+  `created_date` text NOT NULL,
+  `modified_date` text NOT NULL,
+  `message` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
